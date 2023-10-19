@@ -23,3 +23,27 @@ func main() {
 	}
 
 }
+
+// func main() {
+
+// 	// 	cfg, err := config.LoadConfig()
+// 	// if err != nil {
+// 	// 	log.Fatalf("failed to load config: %v", err)
+// 	// }
+
+// 	schoolRepo, err := repository.NewSchoolUseCase()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	schoolUseCase := usecase.NewSchoolUseCase(schoolRepo)
+
+// 	school := schoolUseCase.Create("hii")
+// 	jsonData, err := json.Marshal(school)
+
+// 	if err != nil {
+// 		log.Fatalf("failed to marshal school to json: %v", err)
+// 	}
+// 	fmt.Println(len(jsonData))
+// 	// fmt.Printf("shoo: %+v\n", school)
+
+// }

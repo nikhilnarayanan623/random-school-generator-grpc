@@ -3,7 +3,9 @@ package client
 import (
 	"api-gateway/pkg/client/interfaces"
 	"api-gateway/pkg/config"
+	"context"
 	"fmt"
+	"io"
 	"school-service/pkg/pb"
 
 	"google.golang.org/grpc"
@@ -28,4 +30,36 @@ func NewSchoolClient(cfg config.Config) (interfaces.SchoolClient, error) {
 	return &schoolClient{
 		client: client,
 	}, nil
+}
+
+func (s *schoolClient) GetOneInJSON(name string) ([]byte, error) {
+
+	req := &pb.CreateRequest{
+		Name: name,
+	}
+
+	stream, err := s.client.Create(context.Background(), req)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to call create school: %w", err)
+	}
+
+	var shoolData []byte
+
+	for {
+		fmt.Println("receiving....")
+
+		res, err := stream.Recv()
+		if err != nil {
+
+			fmt.Println("err....", err)
+
+			if err == io.EOF {
+				return shoolData, nil
+			}
+
+			return nil, fmt.Errorf("failed to receive school on stream: %w", err)
+		}
+		shoolData = append(shoolData, res.Data...)
+	}
 }

@@ -10,13 +10,18 @@ import (
 	"school-service/pkg/api"
 	"school-service/pkg/api/service"
 	"school-service/pkg/config"
+	"school-service/pkg/repository"
 	"school-service/pkg/usecase"
 )
 
 // Injectors from wire.go:
 
 func InitializeAPI(cfg config.Config) (*api.Server, error) {
-	schoolUseCase := usecase.NewSchoolUseCase()
+	schoolRepo, err := repository.NewSchoolUseCase()
+	if err != nil {
+		return nil, err
+	}
+	schoolUseCase := usecase.NewSchoolUseCase(schoolRepo)
 	schoolServiceServer := service.NewSchoolService(schoolUseCase)
 	server, err := api.NewServerGRPC(cfg, schoolServiceServer)
 	if err != nil {

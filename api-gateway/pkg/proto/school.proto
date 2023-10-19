@@ -5,7 +5,7 @@ package proto;
 option go_package="./pkg/pb";
 
 service SchoolService{
-    rpc Create( CreateRequest) returns(CreateResponse){};
+    rpc Create( CreateRequest) returns(stream CreateResponse){};
 }
 
 message CreateRequest {
@@ -13,5 +13,5 @@ message CreateRequest {
 }
 
 message CreateResponse{
-
+    bytes data = 1;
 }

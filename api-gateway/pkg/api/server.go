@@ -16,6 +16,8 @@ func NewServerHTTP(cfg config.Config, schoolHandler interfaces.SchoolHandler) *S
 
 	engine := gin.New()
 
+	engine.GET("school", schoolHandler.GetOne)
+
 	return &Server{
 		engine: engine,
 		port:   cfg.ApiPort,

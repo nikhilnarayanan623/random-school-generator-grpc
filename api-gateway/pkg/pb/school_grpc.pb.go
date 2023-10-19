@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SchoolServiceClient interface {
-	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (SchoolService_CreateClient, error)
 }
 
 type schoolServiceClient struct {
@@ -33,20 +33,43 @@ func NewSchoolServiceClient(cc grpc.ClientConnInterface) SchoolServiceClient {
 	return &schoolServiceClient{cc}
 }
 
-func (c *schoolServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
-	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, "/proto.SchoolService/Create", in, out, opts...)
+func (c *schoolServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (SchoolService_CreateClient, error) {
+	stream, err := c.cc.NewStream(ctx, &SchoolService_ServiceDesc.Streams[0], "/proto.SchoolService/Create", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &schoolServiceCreateClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type SchoolService_CreateClient interface {
+	Recv() (*CreateResponse, error)
+	grpc.ClientStream
+}
+
+type schoolServiceCreateClient struct {
+	grpc.ClientStream
+}
+
+func (x *schoolServiceCreateClient) Recv() (*CreateResponse, error) {
+	m := new(CreateResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // SchoolServiceServer is the server API for SchoolService service.
 // All implementations must embed UnimplementedSchoolServiceServer
 // for forward compatibility
 type SchoolServiceServer interface {
-	Create(context.Context, *CreateRequest) (*CreateResponse, error)
+	Create(*CreateRequest, SchoolService_CreateServer) error
 	mustEmbedUnimplementedSchoolServiceServer()
 }
 
@@ -54,8 +77,8 @@ type SchoolServiceServer interface {
 type UnimplementedSchoolServiceServer struct {
 }
 
-func (UnimplementedSchoolServiceServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (UnimplementedSchoolServiceServer) Create(*CreateRequest, SchoolService_CreateServer) error {
+	return status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedSchoolServiceServer) mustEmbedUnimplementedSchoolServiceServer() {}
 
@@ -70,22 +93,25 @@ func RegisterSchoolServiceServer(s grpc.ServiceRegistrar, srv SchoolServiceServe
 	s.RegisterService(&SchoolService_ServiceDesc, srv)
 }
 
-func _SchoolService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _SchoolService_Create_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CreateRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(SchoolServiceServer).Create(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/proto.SchoolService/Create",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchoolServiceServer).Create(ctx, req.(*CreateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(SchoolServiceServer).Create(m, &schoolServiceCreateServer{stream})
+}
+
+type SchoolService_CreateServer interface {
+	Send(*CreateResponse) error
+	grpc.ServerStream
+}
+
+type schoolServiceCreateServer struct {
+	grpc.ServerStream
+}
+
+func (x *schoolServiceCreateServer) Send(m *CreateResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 // SchoolService_ServiceDesc is the grpc.ServiceDesc for SchoolService service.
@@ -94,12 +120,13 @@ func _SchoolService_Create_Handler(srv interface{}, ctx context.Context, dec fun
 var SchoolService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.SchoolService",
 	HandlerType: (*SchoolServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "Create",
-			Handler:    _SchoolService_Create_Handler,
+			StreamName:    "Create",
+			Handler:       _SchoolService_Create_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "pkg/proto/school.proto",
 }
