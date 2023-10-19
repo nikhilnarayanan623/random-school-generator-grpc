@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package="./pkg/pb";
+
+service SchoolService{
+    rpc Create( CreateRequest) returns(CreateResponse){};
+}
+
+message CreateRequest {
+    string name = 1;
+}
+
+message CreateResponse{
+
+}
