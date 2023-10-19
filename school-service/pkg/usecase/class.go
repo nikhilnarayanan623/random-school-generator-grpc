@@ -7,7 +7,7 @@ import (
 
 func (s *schoolUseCase) createClass(name string, classChan chan<- domain.Class) {
 	// select a random student count
-	randStudentCount := utils.GetIntBetween(maxClass, maxStudent)
+	randStudentCount := utils.GetIntBetween(minStudents, maxStudent)
 
 	// make slice of students with random count
 	students := make([]domain.Student, randStudentCount)
