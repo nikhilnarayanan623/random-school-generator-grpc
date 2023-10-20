@@ -26,31 +26,32 @@ func (s *Subject) SetScore(score uint) error {
 	s.Score = score
 
 	// update other details according to score
-	if score >= 80 {
+	switch {
+	case score >= 80:
 		s.Grade = "O"
 		s.Passed = true
 		s.ClassCategory = "Distinction"
-	} else if score >= 70 {
+	case score >= 70:
 		s.Grade = "A"
 		s.Passed = true
 		s.ClassCategory = "Distinction"
-	} else if score >= 60 {
+	case score >= 60:
 		s.Grade = "B"
 		s.Passed = true
 		s.ClassCategory = "First Class"
-	} else if score >= 55 {
+	case score >= 55:
 		s.Grade = "C"
 		s.Passed = true
 		s.ClassCategory = "Second Class"
-	} else if score >= 50 {
+	case score >= 50:
 		s.Grade = "D"
 		s.Passed = true
 		s.ClassCategory = "Second Class"
-	} else if score >= 40 {
+	case score >= 40:
 		s.Grade = "E"
 		s.Passed = true
 		s.ClassCategory = "Pass Class"
-	} else {
+	default:
 		s.Grade = "F"
 		s.Passed = false
 		s.ClassCategory = "Fail"

@@ -5,7 +5,6 @@ type State struct {
 	Cities []string
 }
 
-//////////////////
 
 type School struct {
 	Name    string
