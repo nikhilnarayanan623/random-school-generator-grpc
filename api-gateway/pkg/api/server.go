@@ -1,13 +1,9 @@
 package api
 
 import (
-	"api-gateway/pkg/api/handler/interfaces"
-	"api-gateway/pkg/config"
-
-	// "net/http"
-	// _ "net/http/pprof"
-
 	"github.com/gin-gonic/gin"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/api/handler/interfaces"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/config"
 )
 
 type Server struct {

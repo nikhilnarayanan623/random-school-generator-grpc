@@ -2,8 +2,9 @@ package main
 
 import (
 	"log"
-	"school-service/pkg/config"
-	"school-service/pkg/di"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/config"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/di"
 )
 
 func main() {

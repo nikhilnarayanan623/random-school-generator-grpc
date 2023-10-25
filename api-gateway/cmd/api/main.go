@@ -1,9 +1,10 @@
 package main
 
 import (
-	"api-gateway/pkg/config"
-	"api-gateway/pkg/di"
 	"log"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/config"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/di"
 )
 
 func main() {

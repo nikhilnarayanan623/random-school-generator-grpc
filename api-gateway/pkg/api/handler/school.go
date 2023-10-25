@@ -1,12 +1,13 @@
 package handler
 
 import (
-	"api-gateway/pkg/api/handler/interfaces"
-	clientInterface "api-gateway/pkg/client/interfaces"
-	"api-gateway/pkg/models"
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/api/handler/interfaces"
+	clientInterface "github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/client/interfaces"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/xuri/excelize/v2"

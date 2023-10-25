@@ -2,7 +2,8 @@ package sheet
 
 import (
 	"fmt"
-	"school-service/pkg/domain"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/domain"
 
 	"github.com/xuri/excelize/v2"
 )

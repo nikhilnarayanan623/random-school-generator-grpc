@@ -2,10 +2,12 @@ package usecase
 
 import (
 	"fmt"
-	"school-service/pkg/domain"
-	repoInterface "school-service/pkg/repository/interfaces"
-	"school-service/pkg/usecase/interfaces"
-	"school-service/utils"
+
+	repoInterface "github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/repository/interfaces"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/domain"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/usecase/interfaces"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/utils"
 )
 
 const (

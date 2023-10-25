@@ -7,10 +7,10 @@
 package di
 
 import (
-	"api-gateway/pkg/api"
-	"api-gateway/pkg/api/handler"
-	"api-gateway/pkg/client"
-	"api-gateway/pkg/config"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/api"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/api/handler"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/client"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/config"
 )
 
 // Injectors from wire.go:

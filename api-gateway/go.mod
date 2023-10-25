@@ -1,4 +1,4 @@
-module api-gateway
+module github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway
 
 go 1.21.1
 

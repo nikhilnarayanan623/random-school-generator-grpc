@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"school-service/pkg/config"
-	"school-service/pkg/pb"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/config"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/pb"
 
 	"google.golang.org/grpc"
 )

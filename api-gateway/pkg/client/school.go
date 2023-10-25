@@ -1,12 +1,14 @@
 package client
 
 import (
-	"api-gateway/pkg/client/interfaces"
-	"api-gateway/pkg/config"
 	"context"
 	"fmt"
 	"io"
-	"school-service/pkg/pb"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/pb"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/client/interfaces"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/api-gateway/pkg/config"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

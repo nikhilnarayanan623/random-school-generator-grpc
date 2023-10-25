@@ -2,8 +2,8 @@ package service
 
 import (
 	"encoding/json"
-	"school-service/pkg/pb"
-	"school-service/pkg/usecase/interfaces"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/pb"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/usecase/interfaces"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

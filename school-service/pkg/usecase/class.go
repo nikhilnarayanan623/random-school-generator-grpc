@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"school-service/pkg/domain"
-	"school-service/utils"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/domain"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/utils"
 )
 
 func (s *schoolUseCase) createClass(name string, classChan chan<- domain.Class) {

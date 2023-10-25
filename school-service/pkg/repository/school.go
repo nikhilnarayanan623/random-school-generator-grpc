@@ -1,11 +1,12 @@
 package repository
 
 import (
-	"school-service/pkg/domain"
-	"school-service/pkg/repository/interfaces"
-	"school-service/pkg/sheet"
-	"school-service/utils"
 	"sync"
+
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/domain"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/repository/interfaces"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/pkg/sheet"
+	"github.com/nikhilnarayanan623/random-school-generator-grpc/school-service/utils"
 )
 
 const (
