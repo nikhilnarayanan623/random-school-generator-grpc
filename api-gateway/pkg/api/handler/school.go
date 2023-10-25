@@ -42,6 +42,14 @@ func (s *schoolHandler) GetOne(ctx *gin.Context) {
 		return
 	}
 
+	// if the request content type is in json then write the json data to response
+	if ctx.ContentType() == "application/json" {
+		ctx.Header("Content-Type", "application/json")
+		ctx.Writer.Write(data)
+		return
+	}
+
+	// if it's need in excel unmarshal to school
 	var school models.School
 
 	if err := json.Unmarshal(data, &school); err != nil {
@@ -52,36 +60,24 @@ func (s *schoolHandler) GetOne(ctx *gin.Context) {
 		return
 	}
 
-	file, err := ConvertToExcel(school)
+	// convert the school to excel
+	file, err := convertToExcel(school)
 
-	if err := json.Unmarshal(data, &school); err != nil {
+	ctx.Header("Content-Type", "application/octet-stream")
+	contentDisp := fmt.Sprintf("attachment; filename=%s.xlsx", school.Name)
+	ctx.Header("Content-Disposition", contentDisp)
+
+	if err := file.Write(ctx.Writer); err != nil {
+
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "failed to create excel file",
+			"message": "failed to write excel file to response",
 			"error":   err,
 		})
-		return
-	}
-
-	if ctx.ContentType() == "application/json" {
-		ctx.JSON(http.StatusOK, school)
-	} else {
-		// on excel
-		ctx.Header("Content-Type", "application/octet-stream")
-		contentDisp := fmt.Sprintf("attachment; filename=%s.xlsx", school.Name)
-		ctx.Header("Content-Disposition", contentDisp)
-
-		if err := file.Write(ctx.Writer); err != nil {
-
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": "failed to write excel file to response",
-				"error":   err,
-			})
-		}
 	}
 
 }
 
-func ConvertToExcel(school models.School) (*excelize.File, error) {
+func convertToExcel(school models.School) (*excelize.File, error) {
 
 	f := excelize.NewFile()
 	defer func() {

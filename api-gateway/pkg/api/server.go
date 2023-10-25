@@ -4,6 +4,9 @@ import (
 	"api-gateway/pkg/api/handler/interfaces"
 	"api-gateway/pkg/config"
 
+	// "net/http"
+	// _ "net/http/pprof"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +19,7 @@ func NewServerHTTP(cfg config.Config, schoolHandler interfaces.SchoolHandler) *S
 
 	engine := gin.New()
 
+	engine.Use(gin.Logger())
 	engine.GET("school", schoolHandler.GetOne)
 
 	return &Server{

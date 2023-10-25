@@ -2,7 +2,7 @@
 
 ### To Run Instruction -> [USAGE](USAGE.md)
 
-### This project is to  generate random data for school in ```json and excel```
+### This project is to  generate random school data in ```json and excel```
 
 #### 1. School
 ```
@@ -22,7 +22,7 @@
 2. Age int
 3. Gender (string)
 4. Scores (array of subjects)
-5. HaveDisablity (bool)
+5. HaveDisability (bool)
 6. Address (array of Address)
 ```
 ### Subject

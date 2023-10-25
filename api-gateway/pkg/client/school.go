@@ -47,12 +47,8 @@ func (s *schoolClient) GetOneInJSON(name string) ([]byte, error) {
 	var shoolData []byte
 
 	for {
-		fmt.Println("receiving....")
-
 		res, err := stream.Recv()
 		if err != nil {
-
-			fmt.Println("err....", err)
 
 			if err == io.EOF {
 				return shoolData, nil
